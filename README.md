@@ -12,3 +12,6 @@
     }
 
 ```
+
+
+[download AnimeGANv2_512.mlmodel](https://drive.google.com/file/d/1FQDyTBbXWdy8JV0LLUxgTwtqnwk0JhHy/view?usp=sharing) <br><br>
