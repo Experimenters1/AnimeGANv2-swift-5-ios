@@ -15,3 +15,8 @@
 
 
 [download AnimeGANv2_512.mlmodel](https://drive.google.com/file/d/1FQDyTBbXWdy8JV0LLUxgTwtqnwk0JhHy/view?usp=sharing) <br><br>
+
+![image](https://github.com/Experimenters1/AnimeGANv2-swift-5-ios/assets/64000769/0927fd1b-209d-4e70-925c-0883fad3ed5f)<br><br>
+
+![Screenshot 2023-12-12 at 11 28 56 AM](https://github.com/Experimenters1/AnimeGANv2-swift-5-ios/assets/64000769/b5fe7321-c560-4434-98ae-a1dbd59e3698)<br><br>
+
