@@ -67,21 +67,29 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
 
         // Tạo request cho Core ML và Vision
         let request = VNCoreMLRequest(model: try! VNCoreMLModel(for: model.model)) { (request, error) in
-            if let results = request.results as? [VNPixelBufferObservation],
-               let pixelBuffer = results.first?.pixelBuffer {
+            DispatchQueue.main.async { // Đảm bảo gọi trên main thread
+                if let results = request.results as? [VNPixelBufferObservation],
+                   let pixelBuffer = results.first?.pixelBuffer {
 
-                // Chuyển kết quả về UIImage
-                let resultImage = UIImage(pixelBuffer: pixelBuffer)
+                    // Chuyển kết quả về UIImage
+                    let resultImage = UIImage(pixelBuffer: pixelBuffer)
 
-                
-                self.img.image = resultImage
+                    self.img.image = resultImage
+                }
             }
         }
 
         // Xử lý ảnh với Vision
         let handler = VNImageRequestHandler(ciImage: ciImage)
-        try? handler.perform([request])
+        DispatchQueue.global(qos: .userInitiated).async { // Thực hiện xử lý trên background queue
+            do {
+                try handler.perform([request])
+            } catch {
+                print("Error processing image: \(error)")
+            }
+        }
     }
+
 }
 
 

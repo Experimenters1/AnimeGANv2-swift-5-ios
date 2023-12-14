@@ -8,6 +8,7 @@
 import UIKit
 import Vision
 import CoreML
+import Lottie
 import JGProgressHUD
 
 class ViewController: UIViewController {
@@ -54,7 +55,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             // Gọi hàm xử lý ảnh và lưu kết quả
             
             let hub = JGProgressHUD()
-
+            
             // Gọi hàm showExample() trước khi xử lý extractAudio
             showExample(hub: hub)
             
@@ -104,23 +105,31 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
 
         // Tạo request cho Core ML và Vision
         let request = VNCoreMLRequest(model: try! VNCoreMLModel(for: model.model)) { (request, error) in
-            if let results = request.results as? [VNPixelBufferObservation],
-               let pixelBuffer = results.first?.pixelBuffer {
-
-                // Chuyển kết quả về UIImage
-                let resultImage = UIImage(pixelBuffer: pixelBuffer)
-
-                
-                self.img.image = resultImage
-                
-                // Gọi completion khi processImage hoàn thành
+            DispatchQueue.main.async { // Đảm bảo gọi trên main thread
+                if let results = request.results as? [VNPixelBufferObservation],
+                   let pixelBuffer = results.first?.pixelBuffer {
+                    
+                    // Chuyển kết quả về UIImage
+                    let resultImage = UIImage(pixelBuffer: pixelBuffer)
+                    
+                    
+                    self.img.image = resultImage
+                    
+                    // Gọi completion khi processImage hoàn thành
                     completion()
+                }
             }
         }
 
         // Xử lý ảnh với Vision
         let handler = VNImageRequestHandler(ciImage: ciImage)
-        try? handler.perform([request])
+        DispatchQueue.global(qos: .userInitiated).async { // Thực hiện xử lý trên background queue
+            do {
+                try handler.perform([request])
+            } catch {
+                print("Error processing image: \(error)")
+            }
+        }
     }
 }
 
