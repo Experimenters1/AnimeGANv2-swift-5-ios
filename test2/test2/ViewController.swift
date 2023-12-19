@@ -48,7 +48,18 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage {
             // Gọi hàm xử lý ảnh và lưu kết quả
-            processImage(pickedImage)
+//            processImage(pickedImage)
+            
+            // Sử dụng hàm
+            processImage(pickedImage) { resultImage in
+                if let resultImage = resultImage {
+                    // Hiển thị kết quả trên giao diện
+                    self.img.image = resultImage
+                } else {
+                    // Xử lý khi có lỗi hoặc không có kết quả
+                    print("Failed to process image.")
+                }
+            }
         }
         dismiss(animated: true, completion: nil)
     }
@@ -59,22 +70,32 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     }
 
     // Hàm xử lý ảnh và lưu kết quả
-    func processImage(_ image: UIImage) {
-        guard let model = try? AnimeGANv2_512(configuration: .init()),
-              let ciImage = CIImage(image: image) else {
+    func processImage(_ image: UIImage, completion: @escaping (UIImage?) -> Void) {
+        // Kiểm tra xem model có khả dụng không
+        guard let model = try? AnimeGANv2_512(configuration: .init()) else {
+            completion(nil)
+            return
+        }
+
+        // Tạo CIImage từ UIImage
+        guard let ciImage = CIImage(image: image) else {
+            completion(nil)
             return
         }
 
         // Tạo request cho Core ML và Vision
         let request = VNCoreMLRequest(model: try! VNCoreMLModel(for: model.model)) { (request, error) in
-            DispatchQueue.main.async { // Đảm bảo gọi trên main thread
+            // Xử lý kết quả trên main thread để cập nhật giao diện
+            DispatchQueue.main.async {
                 if let results = request.results as? [VNPixelBufferObservation],
                    let pixelBuffer = results.first?.pixelBuffer {
-
                     // Chuyển kết quả về UIImage
                     let resultImage = UIImage(pixelBuffer: pixelBuffer)
-
-                    self.img.image = resultImage
+                    // Gọi closure với kết quả
+                    completion(resultImage)
+                } else {
+                    // Gọi closure với nil nếu có lỗi hoặc không có kết quả
+                    completion(nil)
                 }
             }
         }
@@ -85,10 +106,14 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             do {
                 try handler.perform([request])
             } catch {
+                // In ra console nếu có lỗi xử lý ảnh
                 print("Error processing image: \(error)")
+                // Gọi closure với nil nếu có lỗi
+                completion(nil)
             }
         }
     }
+
 
 }
 
