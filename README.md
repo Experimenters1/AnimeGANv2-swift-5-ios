@@ -1,6 +1,10 @@
 # AnimeGANv2-swift-5-ios
 ## AnimeGANv2 swift 5 ios
 #  [UIImagePickerController Rotate horizontally](https://stackoverflow.com/questions/5427656/ios-uiimagepickercontroller-result-image-orientation-after-upload) <br><br>
+
+
+![Screenshot 2023-12-20 at 8 59 22 PM](https://github.com/Experimenters1/AnimeGANv2-swift-5-ios/assets/64000769/5f81ce14-76f3-4a76-9a30-6c1216c2f3a0)
+
 # Rotate horizontally : Xoay ngang
 ```swift
                 // Lưu ảnh vào thư mục Documents của ứng dụng
