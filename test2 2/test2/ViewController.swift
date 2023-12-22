@@ -58,11 +58,14 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             
             // Gọi hàm showExample() trước khi xử lý extractAudio
             showExample(hub: hub)
-            
-            processImage(pickedImage.fixedOrientation) {
-                // Closure sẽ được gọi khi processImage hoàn thành
-                hub.dismiss(animated: true)
-            }
+            // Sử dụng hàm
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                // code to execute
+                self.processImage(pickedImage.fixedOrientation) {
+                    // Closure sẽ được gọi khi processImage hoàn thành
+                    hub.dismiss(animated: true)
+                }
+            })
         }
         dismiss(animated: true, completion: nil)
     }

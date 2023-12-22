@@ -51,15 +51,19 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
 //            processImage(pickedImage)
             
             // Sử dụng hàm
-            processImage(pickedImage) { resultImage in
-                if let resultImage = resultImage {
-                    // Hiển thị kết quả trên giao diện
-                    self.img.image = resultImage
-                } else {
-                    // Xử lý khi có lỗi hoặc không có kết quả
-                    print("Failed to process image.")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+               // code to execute
+            
+                self.processImage(pickedImage) { resultImage in
+                    if let resultImage = resultImage {
+                        // Hiển thị kết quả trên giao diện
+                        self.img.image = resultImage
+                    } else {
+                        // Xử lý khi có lỗi hoặc không có kết quả
+                        print("Failed to process image.")
+                    }
                 }
-            }
+            })
         }
         dismiss(animated: true, completion: nil)
     }
