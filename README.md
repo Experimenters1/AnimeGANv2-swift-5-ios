@@ -1,7 +1,7 @@
 # AnimeGANv2-swift-5-ios
 ## AnimeGANv2 swift 5 ios
 #  [UIImagePickerController Rotate horizontally](https://stackoverflow.com/questions/5427656/ios-uiimagepickercontroller-result-image-orientation-after-upload) <br><br>
-
+#  [delay dispath](https://www.google.com/search?q=delay+dispath&oq=delay+dispath&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTILCAEQABgNGBMYgAQyCwgCEAAYDRgTGIAEMgsIAxAAGA0YExiABDIKCAQQABgNGBMYHjIKCAUQABgNGBMYHjIKCAYQABgNGBMYHjIMCAcQABgFGA0YExgeMgwICBAAGAUYDRgTGB4yDAgJEAAYCBgNGBMYHtIBCDQzODlqMWo3qAIAsAIA&sourceid=chrome&ie=UTF-8) <br><br>
 #  [How do you trigger a block after a delay, like -performSelector:withObject:afterDelay:?](https://stackoverflow.com/questions/4139219/how-do-you-trigger-a-block-after-a-delay-like-performselectorwithobjectafter) <br><br>
 ![image](https://github.com/Experimenters1/AnimeGANv2-swift-5-ios/assets/64000769/b5d15c21-2fdd-4c64-9f68-dc31ed0909a6)
 
