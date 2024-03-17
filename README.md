@@ -27,3 +27,4 @@
 
 ![Screenshot 2023-12-12 at 11 28 56 AM](https://github.com/Experimenters1/AnimeGANv2-swift-5-ios/assets/64000769/b5fe7321-c560-4434-98ae-a1dbd59e3698)<br><br>
 
+#  [BackgroundRemovalWithCoreMLSample](https://github.com/tbchen/BackgroundRemovalWithCoreMLSample) <br><br>
